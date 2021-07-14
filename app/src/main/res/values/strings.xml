@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">盟重霸主</string>
+    <string name="facebook_app_id">845223162911514</string>
+    <string name="fb_login_protocol_scheme">fb845223162911514</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="com_jiuzhou_overseasdk_prompt">提示</string>
+    <string name="com_jiuzhou_overseasdk_goto_messenger">是否跳转到Google Play安装Messenger？</string>
+    <string name="com_jiuzhou_overseasdk_send_message_need_login_first">发消息请先登录Facebook</string>
+
+
+</resources>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1053549882588",
+    "firebase_url": "https://xueyingtulong.firebaseio.com",
+    "project_id": "xueyingtulong",
+    "storage_bucket": "xueyingtulong.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053549882588:android:418e775fdf3a03384f5819",
+        "android_client_info": {
+          "package_name": "com.sh.gycq.xhpp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053549882588-e0o8k9vcmjqimqqhf9grv3k0gu9eahle.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm_Td7QVWHZFGjzvroZqDqaINKtitu5z8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053549882588-e0o8k9vcmjqimqqhf9grv3k0gu9eahle.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1053549882588-96ufsvnqoai8r5l07q86lvnedm1dn4pr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ppgames.tulong"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

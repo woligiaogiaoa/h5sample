@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <WebView
+        android:id="@+id/com_jiuzhou_overseasdk_web_view_activity_wv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <ProgressBar
+        android:id="@+id/com_jiuzhou_overseasdk_web_view_activity_pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+    <include
+        android:id="@+id/com_jiuzhou_overseasdk_layout_net_error"
+        layout="@layout/com_jiuzhou_overseasdk_layout_net_error"
+        android:visibility="gone" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:paddingTop="30dp"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/tv_goback"
+            android:drawableLeft="@drawable/com_jiuzhou_overseasdk_dialog_back_icon"
+            android:drawablePadding="10dp"
+            android:textSize="25sp"
+            android:padding="15dp"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical"
+            android:text="返回"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </FrameLayout>
+</FrameLayout>

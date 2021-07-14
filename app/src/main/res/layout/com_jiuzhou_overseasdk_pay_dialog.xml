@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:padding="15dp"
+    android:orientation="horizontal"
+    android:background="@drawable/com_jiuzhou_overseasdk_user_center_dialog_bg"
+    android:layout_height="250dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/v_0"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="10dp" />
+        <TextView
+            android:id="@+id/tv_google_pay"
+            android:layout_gravity="center_vertical"
+            android:text="google"
+            android:drawableTop="@drawable/google"
+            android:textColor="#888"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:id="@+id/v_1"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:id="@+id/tv_alipay"
+            android:text="支付宝"
+            android:layout_marginTop="20dp"
+            android:drawableTop="@drawable/ali_pay"
+            android:textColor="#888"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textColor="#888"
+            android:id="@+id/tv_wxpay"
+            android:drawableTop="@drawable/wx_pay"
+            android:text="微信"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textColor="#888"
+
+            android:id="@+id/tv_paypal"
+            android:text="PayPal"
+            android:layout_marginTop="20dp"
+            android:drawableTop="@drawable/paypal"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv"
+        android:src="@drawable/com_jiuzhou_overseasdk_user_center_dialog_close_icon"
+        android:layout_gravity="end"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_server_name"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/tv_server_name"
+            android:id="@+id/tv_pro_name"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_price"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv_pro_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
+
+
+</FrameLayout>
