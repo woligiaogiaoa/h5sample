@@ -300,6 +300,14 @@ class MainActivity : AppCompatActivity() {
             //App.sp.x5Initialized = true
         }
 
+        webView.registerHandler("backService") { data,function ->
+            startActivityForResult(Intent(this, ChooseUrlPayActivity::class.java).apply {
+                // put a request type
+                putExtra(REQ_TYPE, "choose")
+                putExtra(CANCELABLE_KEY, true)
+            }, CODE_CHOOSE)
+        }
+
         //保存账号相关信息在本地持久化存储中
         webView.registerHandler("setAccount") { data, function ->
             val account = Gson().fromJson(data, RegisterResult::class.java)
@@ -409,6 +417,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
         registerQueryProductIdsFromJs()
 
         webview.registerHandler("loginSuccessful"){ data, function ->

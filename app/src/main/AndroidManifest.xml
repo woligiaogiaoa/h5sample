@@ -23,7 +23,7 @@
 
         <activity
             android:name="com.jiuzhou.oversea.ldxy.offical.MainActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/MainTheme"
             android:launchMode="singleTop"
             tools:ignore="LockedOrientationActivity">

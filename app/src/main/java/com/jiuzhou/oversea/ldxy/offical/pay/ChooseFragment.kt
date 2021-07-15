@@ -1,6 +1,7 @@
 package com.jiuzhou.oversea.ldxy.offical.pay
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -10,8 +11,10 @@ import androidx.fragment.app.Fragment
 import com.jiuzhou.oversea.ldxy.offical.MainActivity
 import com.jiuzhou.oversea.ldxy.offical.R
 import com.jiuzhou.oversea.ldxy.offical.channel.bean.AppInitBean
+import com.jiuzhou.oversea.ldxy.offical.gameId
 import com.jiuzhou.oversea.ldxy.offical.util.ResourceUtils
 import com.jiuzhou.oversea.ldxy.offical.util.ScreenUtils
+import kotlinx.android.synthetic.main.fragment_choose_game_id.*
 
 class ChooseFragment :Fragment() {
 
@@ -26,16 +29,22 @@ class ChooseFragment :Fragment() {
         //fixme: when user choose a game id,set result
         CHOOSE_CODE
         CHOOSED_ID
-
-        /*  mActivityChooseUrl?.apply {
-                setResult(CHOOSE_CODE, Intent().apply {
-                    putExtra(CHOOSED_ID, game-id-user-choosed) //String
-                })
-                finish()
-            }*/
-
-
-
+        rv.withModels {
+            appInitInfo!!.list?.forEach {
+                gameId {
+                    id(it.nameId+it.name)
+                    gameId(it.nameId)
+                    gameIdClick { v ->
+                        mActivityChooseUrl?.apply {
+                            setResult(CHOOSE_CODE, Intent().apply {
+                                putExtra(CHOOSED_ID, it.nameId) //String
+                            })
+                            finish()
+                        }
+                    }
+                }
+            }
+        }
     }
 
     protected var mActivityChooseUrl: ChooseUrlPayActivity? = null

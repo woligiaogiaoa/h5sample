@@ -56,10 +56,6 @@ class ChooseUrlPayActivity:AppCompatActivity() {
     private fun showChoosefragment() {
         switchFragment(ChooseFragment().apply {
             arguments=Bundle().apply {
-               // putString(ROLE_NAME, intent.getStringExtra(ROLE_NAME))
-                //putString(SERVER, intent.getStringExtra(SERVER))
-                //putString(PRODUCT_NAME, intent.getStringExtra(PRODUCT_NAME))
-                //putString(GAME_PRICE, intent.getStringExtra(GAME_PRICE))
             }
         }).commitAllowingStateLoss()
     }
