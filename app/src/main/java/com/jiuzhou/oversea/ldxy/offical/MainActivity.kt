@@ -407,7 +407,7 @@ class MainActivity : AppCompatActivity() {
                 null
             }
             h5OrderBean ?: return@registerHandler
-            //fixme:check pay params
+            //fixme:根据现在的 Game Id 的支付方式来支付。
             if(MyApp.sdkFloatWindiwPayStatusManager.inAppPurchase){
                 googlePay(h5OrderBean)
             }else{
@@ -418,6 +418,8 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+
+        //getSmartList
         registerQueryProductIdsFromJs()
 
         webview.registerHandler("loginSuccessful"){ data, function ->
@@ -623,6 +625,12 @@ class MainActivity : AppCompatActivity() {
                 override fun onBillingSetupFinished(billingResult: BillingResult) {
                     if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                         registerQueryProductIdsFromJs()
+                        //链接上的时候 有没有
+                        val idsWhenConnect=productIdList?.orEmpty()
+                        if(!idsWhenConnect.isNullOrEmpty()){
+                            val googleProductIdList = idsWhenConnect.map { it.google_product_id }
+                            querySkuDetailsAsync(googleProductIdList)
+                        }
                     }
                 }
             })
@@ -637,9 +645,12 @@ class MainActivity : AppCompatActivity() {
             val googleProductIdList = productIdList.map { it.google_product_id }
             Log.d(LOG_TAG, "save product id list($productIdList)")
             this@MainActivity.productIdList = productIdList
+
+
             val productList = OrderUtils.getProductList(googleProductIdList)
             Logs.e("fuckdatabase:$productList")
             querySkuDetailsAsync(googleProductIdList)
+            //fixme:查询商品
             productList?.forEach {
                 if (it.isConsumed.not()) {
                     withContext(Dispatchers.Main) {
@@ -649,6 +660,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    //fixme:支付的时候实时查询支付方式 或者 登录的时候查询
 
     private fun querySkuDetailsAsync(
         skuList: List<String>,
