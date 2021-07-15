@@ -4,6 +4,10 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+kapt {
+    correctErrorTypes = true
+}
+
 
 
 android {
@@ -24,11 +28,12 @@ android {
 
     defaultConfig {
         applicationId 'com.wolfgames.mzbzgp'   //包名 //com.sh.gycq.xhpp
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 8
         versionName "1.0.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -57,7 +62,20 @@ android {
 }
 dependencies {
 
+    def multidex_version = "2.0.1"
+    implementation "androidx.multidex:multidex:$multidex_version"
+
     implementation 'com.github.lzyzsd:jsbridge:1.0.4'
+
+
+    def epoxyVersion='4.1.0'
+
+    implementation "com.airbnb.android:epoxy:$epoxyVersion"
+    implementation "com.airbnb.android:epoxy-databinding:$epoxyVersion"
+    // Add the annotation processor if you are using Epoxy's annotations (recommended)
+    kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
+
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
 
 
 

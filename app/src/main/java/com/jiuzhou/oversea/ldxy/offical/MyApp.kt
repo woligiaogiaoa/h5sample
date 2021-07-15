@@ -10,6 +10,7 @@ import android.preference.PreferenceManager
 import android.util.Base64
 import android.util.Log
 import android.widget.Toast
+import androidx.multidex.MultiDex
 import com.appsflyer.AppsFlyerConversionListener
 import com.appsflyer.AppsFlyerLib
 import com.appsflyer.AppsFlyerProperties
@@ -161,6 +162,11 @@ class MyApp : Application() {
     //todo:支付方式获取
     private fun handlePaymentStrategy() {
         sdkFloatWindiwPayStatusManager.syncStatus()
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
     }
 
 

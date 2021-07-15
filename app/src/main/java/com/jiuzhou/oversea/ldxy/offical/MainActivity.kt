@@ -83,7 +83,9 @@ const val AF_DEV_KEY="4sYZr8duSaF6TTjSQfr8DJ"
 
 class MainActivity : AppCompatActivity() {
 
-    var appInitBean:AppInitBean?=null
+    companion object{
+        var appInitBean:AppInitBean?=null
+    }
 
     var failTime=0
 
@@ -94,7 +96,7 @@ class MainActivity : AppCompatActivity() {
     //init enter game
     fun initFromBackEnd(){
         showProgress("Loading..")
-        OkGo.post<LzyResponse<AppInitBean>>(APP_INIT)
+        OkGo.get<LzyResponse<AppInitBean>>(APP_INIT)
             .tag(APP_INIT)
             .headers("Authorization", token ?: "")
             .execute(object : JsonCallback<LzyResponse<AppInitBean>>() {
@@ -155,6 +157,7 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(Intent(this, ChooseUrlPayActivity::class.java).apply {
                 // put a request type
                 putExtra(REQ_TYPE, "choose")
+                putExtra(CANCELABLE_KEY, false)
             }, CODE_CHOOSE)
         }
 

@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.jiuzhou.h5game.bean.H5OrderBean
+import com.jiuzhou.oversea.ldxy.offical.MainActivity
+import com.jiuzhou.oversea.ldxy.offical.channel.bean.AppInitBean
 import com.jiuzhou.oversea.ldxy.offical.showError
 import com.jiuzhou.oversea.ldxy.offical.showToastIfDebug
 import com.jiuzhou.oversea.ldxy.offical.util.ResourceUtils
@@ -18,12 +20,20 @@ import com.jiuzhou.oversea.ldxy.offical.util.ResourceUtils
 
 fun Activity.stringParams(key:String): String? =intent.getStringExtra(key)
 
+fun Activity.booleanParams(key:String): Boolean =intent.getBooleanExtra(key,true)
+
+val CANCELABLE_KEY="cChooseUrlPayActivity cancellable"
 
 class ChooseUrlPayActivity:AppCompatActivity() {
 
 
     private var currentFragment: Fragment? = null
     private val fragmentMap = mutableMapOf<String, Fragment>()
+
+    var cancelable=true
+
+    val appInitInfo: AppInitBean?
+        get() = MainActivity.appInitBean
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,10 +44,30 @@ class ChooseUrlPayActivity:AppCompatActivity() {
         if(!stringParams(REQ_TYPE).isNullOrEmpty() && stringParams(REQ_TYPE)!!.equals("pay",true)){
             handlePayRequest()
         }
-        else if(true){
-            //todo ;handle 游戏链接
+        else if(!stringParams(REQ_TYPE).isNullOrEmpty() && stringParams(REQ_TYPE)!!.equals("choose",true)){
+            //选一个gameid 返回，应用启动的时候按返回不可以 取消
+                if(!booleanParams(CANCELABLE_KEY)){
+                    cancelable=false
+                }
+            showChoosefragment()
         }
+    }
 
+    private fun showChoosefragment() {
+        switchFragment(ChooseFragment().apply {
+            arguments=Bundle().apply {
+               // putString(ROLE_NAME, intent.getStringExtra(ROLE_NAME))
+                //putString(SERVER, intent.getStringExtra(SERVER))
+                //putString(PRODUCT_NAME, intent.getStringExtra(PRODUCT_NAME))
+                //putString(GAME_PRICE, intent.getStringExtra(GAME_PRICE))
+            }
+        }).commitAllowingStateLoss()
+    }
+
+    override fun onBackPressed() {
+        if(cancelable){
+            super.onBackPressed()
+        }
     }
 
     //todo :pay

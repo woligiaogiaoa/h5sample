@@ -121,5 +121,5 @@ const val PAY_CHANNNEL="PAY WAY"
 
 //选择了哪个 url
 const val CHOOSE_CODE=10009
-const val CHOOSED_ID="PAY WAY"
+const val CHOOSED_ID="GAME_ID_CHOOSED"
 
