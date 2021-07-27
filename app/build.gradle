@@ -101,7 +101,7 @@ dependencies {
     
     implementation 'com.appsflyer:af-android-sdk:5.0.0'
     implementation 'com.android.installreferrer:installreferrer:1.0'
-    implementation "com.android.billingclient:billing:2.0.1"
+    implementation "com.android.billingclient:billing:4.0.0"
     implementation 'com.facebook.android:facebook-android-sdk:5.8.0'
 }
 

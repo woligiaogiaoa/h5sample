@@ -584,13 +584,13 @@ class MainActivity : AppCompatActivity() {
     private fun isPurchaseValid(purchase: Purchase) { //到这说明支付成功了
         canChangeOrderId=false
         Log.d(LOG_TAG, "isPurchaseValid called")
-        val productBean = OrderUtils.getProduct(purchase.sku)
+        val productBean = OrderUtils.getProduct(purchase.skus[0])
         val activity = context as Activity
         OkGo.post<SimpleResponse>(QUERY_ORDER_STATUS)
                 .params("package_name", context.packageName)
-                .params("product_id", purchase.getSku())
+                .params("product_id", purchase.skus[0])
                 .params("token", purchase.getPurchaseToken())
-                .params("order_number", productBean?.orderId)
+                .params("order_number", purchase.accountIdentifiers?.obfuscatedProfileId ?: "")
                 .headers("Authorization", token ?: "")
                 .execute(object : JsonCallback<SimpleResponse?>() {
 
@@ -651,15 +651,14 @@ class MainActivity : AppCompatActivity() {
             Logs.e("fuckdatabase:$productList")
             querySkuDetailsAsync(googleProductIdList)
             //fixme:查询商品
-            productList?.forEach {
-                if (it.isConsumed.not()) {
-                    withContext(Dispatchers.Main) {
-                        queryPurchases()
-                    }
-                }
+
+
+            withContext(Dispatchers.Main) {
+                queryPurchases()
             }
         }
     }
+
     //fixme:支付的时候实时查询支付方式 或者 登录的时候查询
 
     private fun querySkuDetailsAsync(
@@ -675,7 +674,7 @@ class MainActivity : AppCompatActivity() {
                         GlobalScope.launch(Dispatchers.IO) {
                             //把支付数据转化成游戏想要的格式
                             val skuChildList = mutableListOf<SkuChild>()
-                            skuDetailsList.forEach {
+                            skuDetailsList?.forEach {
                                 val skuDetails = it
                                 val currentProductIdBean = productIdList?.findLast {
                                     it.google_product_id == skuDetails.sku
@@ -710,12 +709,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun queryPurchases() {
         val result = billingClient.queryPurchases(BillingClient.SkuType.INAPP)
-        if (result.purchasesList.size > 0) {
+        result.purchasesList?: return
+        if (result.purchasesList!!.size > 0) {
             AlertDialog.Builder(activity)
                     .setTitle("提示")
                     .setMessage("您有一笔付款成功的订单未发放道具，点击确定重新发放道具")
                     .setPositiveButton(activity.getString(android.R.string.yes)) { dialog, which ->
-                        result.purchasesList.forEach {
+                        result.purchasesList!!.forEach {
                             if (it.purchaseState == Purchase.PurchaseState.PURCHASED) {
                                 handleConsumablePurchaseAsync(it)
                             }
@@ -729,14 +729,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleConsumablePurchaseAsync(purchase: Purchase) {
-        val productBean = OrderUtils.getProduct(purchase.sku)
+        val productBean = OrderUtils.getProduct(purchase.skus[0])
         val jsonObject = JSONObject()
         jsonObject.put("order_id", productBean?.orderId)
         jsonObject.put("price", productBean?.price)
         jsonObject.put("price_currency_code", productBean?.priceCurrencyCode)
         val params = ConsumeParams.newBuilder()
                 .setPurchaseToken(purchase.purchaseToken)
-                .setDeveloperPayload(jsonObject.toString())
+                //.setDeveloperPayload(jsonObject.toString())
                 .build()
         billingClient.consumeAsync(params) { billingResult, purchaseToken ->
             when (billingResult.responseCode) {
@@ -758,9 +758,9 @@ class MainActivity : AppCompatActivity() {
         Log.d(LOG_TAG, "requestServerDeliverProduct called")
         OkGo.post<SimpleResponse>(QUERY_ORDER_CONSUME_STATUS)
                 .params("package_name", context.getPackageName())
-                .params("product_id", purchase.getSku())
+                .params("product_id", purchase.skus[0])
                 .params("token", purchase.getPurchaseToken())
-                .params("order_number", productBean?.orderId)
+                .params("order_number", purchase.accountIdentifiers?.obfuscatedProfileId?: "")
                 .headers("Authorization", token ?: "")
                 .execute(object : JsonCallback<SimpleResponse?>() {
                     override fun onSuccess(p0: Response<SimpleResponse?>?) {
@@ -825,8 +825,11 @@ class MainActivity : AppCompatActivity() {
             orderNo = h5OrderBean.fs_number
             val element =
                 skuDetailsList?.find { it.sku == h5OrderBean.google_product_id }
+            element?: return
             val flowParams = BillingFlowParams.newBuilder()
                 .setSkuDetails(element)
+                .setObfuscatedAccountId(orderNo?:"")
+                .setObfuscatedProfileId(orderNo?:"")
                 .build()
             billingClient.launchBillingFlow(activity, flowParams)
 
